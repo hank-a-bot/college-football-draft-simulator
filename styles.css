@@ -957,115 +957,99 @@ body::before {
     pointer-events: none;
 }
 
-.results-header {
+/* Compact Dashboard styling replacing separate results header & cards */
+.compact-dashboard {
+    background: linear-gradient(135deg, rgba(8, 26, 20, 0.95), rgba(4, 18, 11, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.dash-row-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 4px;
+}
+
+.dash-record-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dash-record {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.dash-grade {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    line-height: 1;
+}
+
+.dash-desc {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.dash-row-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+}
+
+.dash-stat {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1.5px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    padding: 2px 1px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 24px;
 }
 
-.result-label {
+.dash-stat.highlighted {
+    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.dash-stat-lbl {
     font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
+    font-size: 7px;
     color: var(--text-muted);
-    text-transform: uppercase;
-}
-
-.result-record {
-    font-family: 'Outfit', sans-serif;
-    font-size: 62px;
-    font-weight: 900;
-    line-height: 1;
-    color: var(--gold);
-    margin: 12px 0;
-    letter-spacing: 0.05em;
-}
-
-.result-grade-badge {
-    font-family: 'Outfit', sans-serif;
-    font-size: 32px;
     font-weight: 700;
-    border: 2px solid var(--gold);
-    padding: 6px 24px;
-    border-radius: 2px;
-    transform: rotate(-2deg);
-    display: inline-block;
-    color: var(--gold);
-    background: rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
 }
 
-.overall-scores {
-    display: grid;
-    grid-template-cols: 1fr 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 24px;
-}
-
-.score-card {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(212, 175, 55, 0.1);
-    border-radius: var(--radius-md);
-    padding: 14px 8px;
-}
-
-.score-num {
+.dash-stat-val {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    display: block;
-    line-height: 1.1;
+    font-size: 12px;
+    font-weight: 800;
     color: #ffffff;
+    line-height: 1.1;
 }
 
-.score-lbl {
-    font-family: 'Outfit', sans-serif;
-    font-size: 8px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: 4px;
-}
-
-/* Weakest Link Display Card */
-.weakest-link-card {
-    background: rgba(194, 65, 12, 0.03);
-    border: 1px solid rgba(194, 65, 12, 0.15);
-    border-radius: var(--radius-md);
-    padding: 14px;
-    text-align: left;
-    margin-bottom: 24px;
-}
-
-.weakest-link-card h4 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: #cf5527;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* Roster Star Power Card */
-.all-americans-card {
-    background: rgba(212, 175, 55, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: var(--radius-md);
-    padding: 14px;
-    text-align: left;
-    margin-bottom: 16px;
-}
-
-.all-americans-card h4 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
+.dash-stat.highlighted .dash-stat-val {
     color: var(--gold);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
 }
 
 .weakest-player-info {
@@ -2008,27 +1992,15 @@ body::before {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 14px;
-    margin-bottom: 20px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
     text-align: left;
-}
-
-.results-roster-card h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-main);
-    margin-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 6px;
 }
 
 .results-roster-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 8px;
 }
 
 .results-roster-column {
@@ -2039,10 +2011,10 @@ body::before {
 .results-column-header {
     font-family: 'Outfit', sans-serif;
     font-size: 9px;
-    font-weight: 800;
+    font-weight: 850;
     letter-spacing: 0.05em;
     padding: 3px 6px;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
     border-radius: var(--radius-sm);
     text-align: center;
 }
@@ -2050,14 +2022,14 @@ body::before {
 .results-roster-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .results-player-item {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
-    padding: 4px 6px;
+    padding: 2px 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2071,20 +2043,20 @@ body::before {
 .results-player-left {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
     min-width: 0;
     flex: 1;
 }
 
 .results-player-pos {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 9px;
-    font-weight: 800;
+    font-size: 8px;
+    font-weight: 900;
     color: var(--text-muted);
     background: rgba(255, 255, 255, 0.06);
-    padding: 1px 4px;
+    padding: 1px 2px;
     border-radius: var(--radius-sm);
-    min-width: 28px;
+    min-width: 22px;
     text-align: center;
     flex-shrink: 0;
 }
@@ -2098,19 +2070,20 @@ body::before {
 
 .results-player-name {
     font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 9.5px;
+    font-weight: 750;
     color: var(--text-main);
     line-height: 1.1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.025em;
 }
 
 .results-player-meta {
-    font-size: 8px;
+    font-size: 7.5px;
     color: var(--text-muted);
-    margin-top: 1px;
+    margin-top: 0px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2119,7 +2092,7 @@ body::before {
 .results-player-right {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     flex-shrink: 0;
 }
 
@@ -2136,12 +2109,12 @@ body::before {
 
 .results-player-rating {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
+    font-size: 9.5px;
+    font-weight: 800;
     color: var(--text-main);
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1px 4px;
+    padding: 1px 3px;
     border-radius: var(--radius-sm);
 }
 

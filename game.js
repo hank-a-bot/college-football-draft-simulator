@@ -958,7 +958,7 @@ class CollegeGame {
         
         // Display All-American count in results modal
         const aaCountVal = document.getElementById("result-aa-count-val");
-        aaCountVal.innerText = `${aaCount} / 5`;
+        aaCountVal.innerText = aaCount;
         if (aaCount >= 5) {
             aaCountVal.style.color = "#10b981";
         } else if (aaCount >= 3) {
@@ -974,7 +974,7 @@ class CollegeGame {
         if (weakestPlayer) {
             document.getElementById("weakest-player-name").innerText = `${weakestPlayer.name} (${weakestSlotId})`;
             document.getElementById("weakest-player-meta").innerHTML = `${weakestPlayer.teamAbbr} • ${weakestPlayer.season}`;
-            document.getElementById("weakest-player-rating-val").innerText = `Rating: ${weakestPlayer.rating}`;
+            document.getElementById("weakest-player-rating-val").innerText = weakestPlayer.rating;
         }
         
         // Set share code input text

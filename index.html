@@ -124,25 +124,6 @@
 
             </div>
 
-            <!-- Roster Bottom Sheet (Mobile Drafting) -->
-            <div class="roster-bottom-sheet glass-panel" id="mobile-roster-sheet">
-                <div class="bottom-sheet-header">
-                    <span class="sheet-title">Your Roster</span>
-                    <span class="sheet-progress" id="sheet-progress-val">0 / 12</span>
-                </div>
-                <div class="bottom-sheet-grid">
-                    <div class="sheet-row-label">DEF</div>
-                    <div class="sheet-row-slots" id="sheet-def-slots">
-                        <!-- slots injected via JS -->
-                    </div>
-                    
-                    <div class="sheet-row-label">OFF</div>
-                    <div class="sheet-row-slots" id="sheet-off-slots">
-                        <!-- slots injected via JS -->
-                    </div>
-                </div>
-            </div>
-
             <!-- Spin / Draft drawer (Slot Machine Panel) -->
             <div class="drawer-panel glass-panel" id="draft-drawer">
                 
@@ -206,64 +187,72 @@
             </div>
         </main>
 
+        <!-- Roster Bottom Sheet (Mobile Drafting) -->
+        <div class="roster-bottom-sheet glass-panel" id="mobile-roster-sheet">
+            <div class="bottom-sheet-header">
+                <span class="sheet-title">Your Roster</span>
+                <span class="sheet-progress" id="sheet-progress-val">0 / 12</span>
+            </div>
+            <div class="bottom-sheet-grid">
+                <div class="sheet-row-label">DEF</div>
+                <div class="sheet-row-slots" id="sheet-def-slots">
+                    <!-- slots injected via JS -->
+                </div>
+                
+                <div class="sheet-row-label">OFF</div>
+                <div class="sheet-row-slots" id="sheet-off-slots">
+                    <!-- slots injected via JS -->
+                </div>
+            </div>
+        </div>
+
         <!-- SIMULATION RESULTS MODAL -->
         <div id="results-modal" class="modal-overlay">
             <div class="modal-card glass-panel animate-scale">
                 
-                <div class="results-header">
-                    <span class="result-label" id="result-descriptor">ELITE RUN</span>
-                    <h2 class="result-record" id="result-record-val">15 - 1</h2>
-                    <div class="result-grade-badge" id="result-grade-val">A+</div>
+                <!-- Compact Roster Dashboard Header -->
+                <div class="compact-dashboard">
+                    <div class="dash-row-top">
+                        <div class="dash-record-box">
+                            <span class="dash-record" id="result-record-val">16 - 0</span>
+                            <span class="dash-grade" id="result-grade-val">S+</span>
+                            <span class="dash-desc" id="result-descriptor">IMMORTAL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="dash-row-stats">
+                        <div class="dash-stat">
+                            <span class="dash-stat-lbl">OFF</span>
+                            <span class="dash-stat-val" id="result-off-rtg">99</span>
+                        </div>
+                        <div class="dash-stat">
+                            <span class="dash-stat-lbl">DEF</span>
+                            <span class="dash-stat-val" id="result-def-rtg">99</span>
+                        </div>
+                        <div class="dash-stat highlighted">
+                            <span class="dash-stat-lbl">OVR</span>
+                            <span class="dash-stat-val" id="result-team-rtg">99</span>
+                        </div>
+                        <div class="dash-stat">
+                            <span class="dash-stat-lbl">STARS</span>
+                            <span class="dash-stat-val" id="result-aa-count-val">12</span>
+                        </div>
+                        <div class="dash-stat">
+                            <span class="dash-stat-lbl">MIN RTG</span>
+                            <span class="dash-stat-val" id="weakest-player-rating-val" style="color: #ea580c;">75</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="results-body">
-                    <div class="overall-scores">
-                        <div class="score-card">
-                            <span class="score-num" id="result-off-rtg">92</span>
-                            <span class="score-lbl">Offense Strength</span>
-                        </div>
-                        <div class="score-card">
-                            <span class="score-num" id="result-def-rtg">94</span>
-                            <span class="score-lbl">Defense Strength</span>
-                        </div>
-                        <div class="score-card">
-                            <span class="score-num" id="result-team-rtg">93</span>
-                            <span class="score-lbl">Team Overall</span>
-                        </div>
-                    </div>
+                <!-- Hidden containers to keep JavaScript query IDs happy -->
+                <div style="display: none;">
+                    <span id="weakest-player-name"></span>
+                    <span id="weakest-player-meta"></span>
+                </div>
 
-                    <div class="all-americans-card">
-                        <h4>
-                            <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;">
-                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                            </svg>
-                            Roster Star Power
-                        </h4>
-                        <div class="weakest-player-info">
-                            <span>Consensus All-Americans / Heisman Finalists:</span>
-                            <span id="result-aa-count-val" style="color: var(--gold); font-weight: 800; font-size: 14px;">0</span>
-                        </div>
-                    </div>
-
-                    <div class="weakest-link-card">
-                        <h4>
-                            <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;">
-                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-                                <line x1="12" y1="9" x2="12" y2="13"/>
-                                <line x1="12" y1="17" x2="12.01" y2="17"/>
-                            </svg>
-                            Weakest Draft Link
-                        </h4>
-                        <div class="weakest-player-info">
-                            <span id="weakest-player-name">John Doe (QB)</span>
-                            <span class="weakest-player-year" id="weakest-player-meta">CLEM &bull; 2011</span>
-                            <span class="weakest-player-rating" id="weakest-player-rating-val">Rating: 72</span>
-                        </div>
-                    </div>
-
+                <div class="results-body" style="padding-top: 0;">
                     <!-- Visual Completed Roster Card -->
                     <div class="results-roster-card">
-                        <h3>Your Completed Roster</h3>
                         <div class="results-roster-grid">
                             <div class="results-roster-column">
                                 <div class="results-column-header offense-accent">OFFENSE</div>
@@ -283,7 +272,7 @@
                     <div class="share-code-box">
                         <label for="share-code-text">Share Your Run</label>
                         <div class="copy-input-group">
-                            <input type="text" id="share-code-text" readonly value="CFB 16-0: 15-1 (A+ Elite) &bull; Team Rtg: 93">
+                            <input type="text" id="share-code-text" readonly value="...">
                             <button id="copy-share-btn" class="btn btn-primary">
                                 <svg class="icon-svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
