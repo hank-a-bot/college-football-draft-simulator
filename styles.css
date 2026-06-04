@@ -1441,7 +1441,8 @@ body::before {
             "drawer";
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr;
-        height: calc(100vh - 310px) !important;
+        height: calc(100vh - 20px - var(--bottom-sheet-h, 140px)) !important;
+        height: calc(100dvh - 20px - var(--bottom-sheet-h, 140px)) !important;
         gap: 12px;
         overflow: hidden;
     }
@@ -1456,6 +1457,7 @@ body::before {
         height: 100% !important;
         max-height: none !important;
         padding: 14px !important;
+        overflow: hidden !important;
     }
     
     .layout-drafting .workspace-grid {
@@ -1478,7 +1480,8 @@ body::before {
             "drawer";
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr;
-        height: calc(100vh - 310px) !important;
+        height: calc(100vh - 20px - var(--bottom-sheet-h, 140px)) !important;
+        height: calc(100dvh - 20px - var(--bottom-sheet-h, 140px)) !important;
         gap: 6px;
         overflow: hidden;
     }
@@ -1493,6 +1496,7 @@ body::before {
         height: 100% !important;
         max-height: none !important;
         padding: 10px !important;
+        overflow: hidden !important;
     }
     
     .layout-drafting .workspace-grid {
@@ -1645,6 +1649,7 @@ body::before {
     gap: 16px !important;
     flex: 1 !important;
     min-height: 0 !important;
+    overflow: hidden !important;
 }
 
 .pool-column {
@@ -1655,6 +1660,7 @@ body::before {
     border-radius: var(--radius-md) !important;
     padding: 14px !important;
     min-height: 0 !important;
+    overflow: hidden !important;
 }
 
 .pool-column-header {
@@ -1697,7 +1703,9 @@ body::before {
     flex-direction: column !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    height: 100% !important;
+    flex: 1 1 0px !important;
+    min-height: 0 !important;
+    height: auto !important;
     padding-bottom: 10px !important;
     scrollbar-width: thin !important;
 }

@@ -252,6 +252,16 @@ class CollegeGame {
             this.screens.game.classList.toggle("layout-spinning", stateName === "spinCta");
             document.body.classList.toggle("layout-drafting", stateName === "poolDraft");
             document.body.classList.toggle("layout-spinning", stateName === "spinCta");
+            
+            // Measure the bottom sheet height and set CSS variable so the game
+            // screen height ends exactly above the tray on mobile
+            requestAnimationFrame(() => {
+                const sheet = document.getElementById("mobile-roster-sheet");
+                if (sheet) {
+                    const sheetH = sheet.offsetHeight || 0;
+                    this.screens.game.style.setProperty("--bottom-sheet-h", sheetH + "px");
+                }
+            });
         }
     }
 
