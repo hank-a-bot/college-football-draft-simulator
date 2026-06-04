@@ -626,6 +626,7 @@ body::before {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    padding: 0 12px;
 }
 
 .wheel-text {
@@ -635,6 +636,9 @@ body::before {
     color: var(--gold);
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-align: center;
+    padding: 0 10px;
+    line-height: 1.25;
 }
 
 .slot-wheel.spinning .wheel-text {
