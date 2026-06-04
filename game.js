@@ -47,6 +47,7 @@ const eras = [
 
 class CollegeGame {
     constructor() {
+        this.gameMode = "classic"; // "classic" (are you sure you can handle this load) or "hard" (choose hard)
         this.roster = {}; // slotId -> playerObject
         this.rerolls = 2;
         this.spin = null; // current spin { team, era, pool }
@@ -97,7 +98,8 @@ class CollegeGame {
             welcome: document.getElementById("welcome-screen"),
             game: document.getElementById("game-screen")
         };
-        this.btnStart = document.getElementById("start-game-btn");
+        this.btnStartMockler = document.getElementById("start-mockler-btn");
+        this.btnStartHard = document.getElementById("start-hard-btn");
         this.btnReset = document.getElementById("reset-draft-btn");
         this.btnSpin = document.getElementById("spin-btn");
         this.btnReroll = document.getElementById("reroll-btn");
@@ -140,11 +142,19 @@ class CollegeGame {
     }
 
     bindEvents() {
-        this.btnStart.addEventListener("click", () => this.startNewGame());
+        if (this.btnStartMockler) {
+            this.btnStartMockler.addEventListener("click", () => this.startNewGame("classic"));
+        }
+        if (this.btnStartHard) {
+            this.btnStartHard.addEventListener("click", () => this.startNewGame("hard"));
+        }
         this.btnReset.addEventListener("click", () => this.resetDraft());
         this.btnSpin.addEventListener("click", () => this.rollSlotMachine());
         this.btnReroll.addEventListener("click", () => this.triggerReroll());
-        this.btnPlayAgain.addEventListener("click", () => this.startNewGame());
+        this.btnPlayAgain.addEventListener("click", () => {
+            this.resultsModal.classList.remove("active");
+            this.showScreen("welcome");
+        });
         this.btnCloseResults.addEventListener("click", () => this.closeResults());
         this.btnCopyShare.addEventListener("click", () => this.copyShareCode());
         this.homeLink.addEventListener("click", () => this.showScreen("welcome"));
@@ -171,7 +181,8 @@ class CollegeGame {
         }
     }
 
-    startNewGame() {
+    startNewGame(mode = "classic") {
+        this.gameMode = mode;
         this.roster = {};
         this.rerolls = 2;
         this.spin = null;
@@ -179,6 +190,18 @@ class CollegeGame {
         this.usedTeams.defense.clear();
         this.isSpinning = false;
         this.lastRolled = null;
+        
+        // Update header game mode badge
+        const badge = document.getElementById("header-game-mode-badge");
+        if (badge) {
+            if (mode === "hard") {
+                badge.innerText = "Choose Hard";
+                badge.className = "header-badge hard-mode-accent";
+            } else {
+                badge.innerText = "Load Mode";
+                badge.className = "header-badge classic-mode-accent";
+            }
+        }
         
         this.resultsModal.classList.remove("active");
         this.showScreen("game");
@@ -191,7 +214,7 @@ class CollegeGame {
 
     resetDraft() {
         if (confirm("Are you sure you want to reset your draft? You will lose all drafted players.")) {
-            this.startNewGame();
+            this.startNewGame(this.gameMode);
         }
     }
 
@@ -203,6 +226,13 @@ class CollegeGame {
         // Offense first: fill all 12 offensive slots, then move to defense
         const offFilled = offenseSlots.filter(s => this.roster[s.id]).length;
         return offFilled < 6 ? "offense" : "defense";
+    }
+
+    get currentEligibleSlots() {
+        if (this.gameMode === "hard") {
+            return this.activeSide === "offense" ? offenseSlots : defenseSlots;
+        }
+        return allSlots;
     }
 
     get filledCount() {
@@ -394,7 +424,7 @@ class CollegeGame {
         if (totalPlayers.length < 8) return false;
         
         // 2. Identify open slots and needed positions
-        const openSlots = allSlots.filter(slot => !this.roster[slot.id]);
+        const openSlots = this.currentEligibleSlots.filter(slot => !this.roster[slot.id]);
         if (openSlots.length === 0) return false;
         
         const neededPositions = new Set();
@@ -492,7 +522,7 @@ class CollegeGame {
                         if (weight > 0) {
                             const totalPlayers = this.dbPlayers.filter(p => p.teamAbbr === team.abbr && p.season >= era.start && p.season <= era.end);
                             if (totalPlayers.length >= 8) {
-                                const openSlots = allSlots.filter(slot => !this.roster[slot.id]);
+                                const openSlots = this.currentEligibleSlots.filter(slot => !this.roster[slot.id]);
                                 const neededPositions = new Set();
                                 openSlots.forEach(s => s.eligible.forEach(pos => neededPositions.add(pos)));
                                 const availablePlayers = totalPlayers.filter(p => !Object.values(this.roster).some(rp => rp.id === p.id));
@@ -592,6 +622,10 @@ class CollegeGame {
         // Helper to check if there is ANY eligible slot left for a position (including Flex/D-Flex)
         const hasAvailableSlot = (pos) => {
             const side = this.getPlayerSide(pos);
+            // In hard mode, player side must match the current activeSide
+            if (this.gameMode === "hard" && side !== this.activeSide) {
+                return false;
+            }
             const slots = side === "offense" ? offenseSlots : defenseSlots;
             const eligibleSlots = slots.filter(slot => slot.eligible.includes(pos));
             return eligibleSlots.some(slot => !this.roster[slot.id]);
@@ -710,7 +744,7 @@ class CollegeGame {
     highlightEligibleSlots(player) {
         this.clearHighlights();
         
-        allSlots.forEach(slot => {
+        this.currentEligibleSlots.forEach(slot => {
             // Check if slot is empty AND player matches eligible positions
             if (!this.roster[slot.id] && slot.eligible.includes(player.position)) {
                 // Highlight main board row
@@ -741,11 +775,22 @@ class CollegeGame {
         const isCellEligible = cell && cell.classList.contains("eligible-highlight");
         if (!isRowEligible && !isCellEligible) return;
         
+        // Keep track of offense filled count before placement
+        const offFilledBefore = offenseSlots.filter(s => this.roster[s.id]).length;
+
         // Place player in slot
         const player = this.selectedPlayer;
         this.roster[slot.id] = player;
         this.selectedPlayer = null;
         this.clearHighlights();
+        
+        // Check if we just filled the 6th offense slot in hard mode
+        const offFilledAfter = offenseSlots.filter(s => this.roster[s.id]).length;
+        if (this.gameMode === "hard" && offFilledBefore === 5 && offFilledAfter === 6) {
+            // Transition from Offense phase to Defense phase!
+            this.rerolls = 2; // Rerolls reset to 2, do not carry over
+            this.showTransitionToast();
+        }
         
         this.renderRosterGrids();
         this.updateLiveProjectedStats();
@@ -1088,6 +1133,44 @@ class CollegeGame {
             };
             toast.addEventListener("animationend", onAnimationEnd, { once: true });
         }, 3500);
+    }
+
+    showTransitionToast() {
+        // Create toast container if it doesn't exist
+        let container = document.getElementById("toast-container");
+        if (!container) {
+            container = document.createElement("div");
+            container.id = "toast-container";
+            document.body.appendChild(container);
+        }
+        
+        const toast = document.createElement("div");
+        toast.className = "toast-notification glass-panel animate-slide-in warning-toast";
+        toast.style.borderColor = "var(--defense)";
+        
+        toast.innerHTML = `
+            <div class="toast-header">
+                <span class="toast-icon" style="color: var(--defense); font-size: 16px;">🛡️</span>
+                <span class="toast-title" style="margin-left: 6px; color: var(--defense); font-weight: 700;">Defense Phase Activated!</span>
+            </div>
+            <div class="toast-body">
+                Offense is locked! Rerolls have been reset to <strong>2</strong> (do not carry over). It's time to build your defense!
+            </div>
+        `;
+        
+        container.appendChild(toast);
+        
+        // Remove toast after 4 seconds
+        setTimeout(() => {
+            toast.classList.add("animate-slide-out");
+            const onAnimationEnd = () => {
+                toast.remove();
+                if (container.children.length === 0) {
+                    container.remove();
+                }
+            };
+            toast.addEventListener("animationend", onAnimationEnd, { once: true });
+        }, 4000);
     }
 }
 

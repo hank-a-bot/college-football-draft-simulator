@@ -23,8 +23,15 @@
                     <p class="subtitle">Draft a 12-man roster of college football stars from 2001 to 2025. Spin random teams and eras, test your football knowledge, and simulate a perfect 16-0 championship run.</p>
                 </div>
                 
-                <div class="welcome-actions">
-                    <button id="start-game-btn" class="btn btn-primary btn-lg">Start Draft</button>
+                <div class="welcome-actions-modes">
+                    <button id="start-mockler-btn" class="btn btn-primary btn-lg btn-mode-choice">
+                        <span class="mode-title">are you sure you can handle this load</span>
+                        <span class="mode-desc">Classic Mode &bull; Draft any position at any time</span>
+                    </button>
+                    <button id="start-hard-btn" class="btn btn-accent btn-lg btn-mode-choice">
+                        <span class="mode-title">Choose Hard</span>
+                        <span class="mode-desc">Challenge Mode &bull; Fill Offense first, then Defense</span>
+                    </button>
                 </div>
 
                 <div class="welcome-instructions">
@@ -54,7 +61,7 @@
                         </svg>
                     </span>
                     <span class="logo-title">CFB 16-0</span>
-                    <span class="header-badge">Gridiron IQ</span>
+                    <span class="header-badge" id="header-game-mode-badge">Gridiron IQ</span>
                 </div>
                 
                 <!-- Live simulation projected wins / rating display -->
