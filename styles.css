@@ -839,24 +839,26 @@ body::before {
     backdrop-filter: blur(15px);
     z-index: 1000;
     display: none;
-    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
 .modal-overlay.active {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
 }
 
 .modal-card {
     width: 100%;
     max-width: 760px;
-    margin: 40px auto;
-    padding: 35px;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 25px;
     text-align: center;
     border: 2px solid var(--border-color);
     position: relative;
+    background: #06130b;
 }
 
 .modal-card::after {
@@ -1921,34 +1923,27 @@ body::before {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    padding: 20px;
-    margin-bottom: 24px;
+    padding: 14px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
 .results-roster-card h3 {
     font-family: 'Outfit', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-main);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
+    padding-bottom: 6px;
 }
 
 .results-roster-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-@media (max-width: 600px) {
-    .results-roster-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
+    gap: 12px;
 }
 
 .results-roster-column {
@@ -1958,11 +1953,11 @@ body::before {
 
 .results-column-header {
     font-family: 'Outfit', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.05em;
-    padding: 4px 8px;
-    margin-bottom: 8px;
+    padding: 3px 6px;
+    margin-bottom: 6px;
     border-radius: var(--radius-sm);
     text-align: center;
 }
@@ -1970,14 +1965,14 @@ body::before {
 .results-roster-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .results-player-item {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-md);
-    padding: 8px 12px;
+    padding: 4px 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1991,44 +1986,56 @@ body::before {
 .results-player-left {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
+    min-width: 0;
+    flex: 1;
 }
 
 .results-player-pos {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 800;
     color: var(--text-muted);
     background: rgba(255, 255, 255, 0.06);
-    padding: 2px 6px;
+    padding: 1px 4px;
     border-radius: var(--radius-sm);
-    min-width: 32px;
+    min-width: 28px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .results-player-details {
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    flex: 1;
 }
 
 .results-player-name {
     font-family: 'Outfit', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--text-main);
-    line-height: 1.2;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .results-player-meta {
-    font-size: 10px;
+    font-size: 8px;
     color: var(--text-muted);
-    margin-top: 2px;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .results-player-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    flex-shrink: 0;
 }
 
 .results-star-badge {
@@ -2044,12 +2051,12 @@ body::before {
 
 .results-player-rating {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text-main);
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 2px 6px;
+    padding: 1px 4px;
     border-radius: var(--radius-sm);
 }
 
