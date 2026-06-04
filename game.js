@@ -947,8 +947,61 @@ class CollegeGame {
         // Reset copy message
         document.getElementById("copy-status-msg").style.display = "none";
         
+        // Render final roster inside the results modal
+        const offList = document.getElementById("results-offense-list");
+        const defList = document.getElementById("results-defense-list");
+        if (offList && defList) {
+            offList.innerHTML = "";
+            defList.innerHTML = "";
+            
+            offenseSlots.forEach(slot => {
+                const p = this.roster[slot.id];
+                if (p) {
+                    offList.appendChild(this.createResultsPlayerCard(slot, p));
+                }
+            });
+            
+            defenseSlots.forEach(slot => {
+                const p = this.roster[slot.id];
+                if (p) {
+                    defList.appendChild(this.createResultsPlayerCard(slot, p));
+                }
+            });
+        }
+        
         // Open results modal
         this.resultsModal.classList.add("active");
+    }
+
+    createResultsPlayerCard(slot, player) {
+        const card = document.createElement("div");
+        card.className = "results-player-item";
+        
+        const accoladesLower = (player.accolades || "").toLowerCase();
+        const isStar = accoladesLower.includes("all-american") || accoladesLower.includes("all american") || accoladesLower.includes("heisman");
+        
+        card.style.borderLeft = `3px solid ${this.getTeamColor(player.teamAbbr)}`;
+        
+        card.innerHTML = `
+            <div class="results-player-left">
+                <span class="results-player-pos">${slot.label}</span>
+                <div class="results-player-details">
+                    <span class="results-player-name">${player.name}</span>
+                    <span class="results-player-meta">${player.teamAbbr} • '${player.season.toString().substring(2)}</span>
+                </div>
+            </div>
+            <div class="results-player-right">
+                ${isStar ? `
+                    <span class="results-star-badge" title="${player.accolades}">
+                        <svg class="results-star-svg" viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </span>
+                ` : ''}
+                <span class="results-player-rating">${player.rating}</span>
+            </div>
+        `;
+        return card;
     }
 
     getSimulationGrade(wins) {

@@ -846,7 +846,7 @@ body::before {
 
 .modal-card {
     width: 100%;
-    max-width: 500px;
+    max-width: 760px;
     padding: 35px;
     text-align: center;
     border: 2px solid var(--border-color);
@@ -1908,5 +1908,142 @@ body::before {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* Results Roster Section */
+.results-roster-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.results-roster-card h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.results-roster-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .results-roster-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.results-roster-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.results-column-header {
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    padding: 4px 8px;
+    margin-bottom: 8px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+}
+
+.results-roster-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.results-player-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.results-player-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.results-player-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.results-player-pos {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    min-width: 32px;
+    text-align: center;
+}
+
+.results-player-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.results-player-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.results-player-meta {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.results-player-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.results-star-badge {
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.results-star-svg {
+    filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.5));
+}
+
+.results-player-rating {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
 }
 
