@@ -184,7 +184,7 @@ class CollegeGame {
     startNewGame(mode = "classic") {
         this.gameMode = mode;
         this.roster = {};
-        this.rerolls = 2;
+        this.rerolls = mode === "hard" ? 1 : 2;
         this.spin = null;
         this.usedTeams.offense.clear();
         this.usedTeams.defense.clear();
@@ -788,8 +788,7 @@ class CollegeGame {
         const offFilledAfter = offenseSlots.filter(s => this.roster[s.id]).length;
         if (this.gameMode === "hard" && offFilledBefore === 5 && offFilledAfter === 6) {
             // Transition from Offense phase to Defense phase!
-            this.rerolls = 2; // Rerolls reset to 2, do not carry over
-            this.showTransitionToast();
+            this.rerolls = 1; // Rerolls reset to 1, do not carry over
         }
         
         this.renderRosterGrids();
@@ -1133,44 +1132,6 @@ class CollegeGame {
             };
             toast.addEventListener("animationend", onAnimationEnd, { once: true });
         }, 3500);
-    }
-
-    showTransitionToast() {
-        // Create toast container if it doesn't exist
-        let container = document.getElementById("toast-container");
-        if (!container) {
-            container = document.createElement("div");
-            container.id = "toast-container";
-            document.body.appendChild(container);
-        }
-        
-        const toast = document.createElement("div");
-        toast.className = "toast-notification glass-panel animate-slide-in warning-toast";
-        toast.style.borderColor = "var(--defense)";
-        
-        toast.innerHTML = `
-            <div class="toast-header">
-                <span class="toast-icon" style="color: var(--defense); font-size: 16px;">🛡️</span>
-                <span class="toast-title" style="margin-left: 6px; color: var(--defense); font-weight: 700;">Defense Phase Activated!</span>
-            </div>
-            <div class="toast-body">
-                Offense is locked! Rerolls have been reset to <strong>2</strong> (do not carry over). It's time to build your defense!
-            </div>
-        `;
-        
-        container.appendChild(toast);
-        
-        // Remove toast after 4 seconds
-        setTimeout(() => {
-            toast.classList.add("animate-slide-out");
-            const onAnimationEnd = () => {
-                toast.remove();
-                if (container.children.length === 0) {
-                    container.remove();
-                }
-            };
-            toast.addEventListener("animationend", onAnimationEnd, { once: true });
-        }, 4000);
     }
 }
 
