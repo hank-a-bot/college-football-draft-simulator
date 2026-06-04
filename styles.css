@@ -1454,11 +1454,10 @@ body::before {
         grid-template-areas: 
             "header"
             "tabs"
-            "drawer"
-            "sheet";
+            "drawer";
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr auto;
-        height: calc(100vh - 40px) !important;
+        grid-template-rows: auto auto 1fr;
+        height: calc(100vh - 160px) !important;
         gap: 12px;
         overflow: hidden;
     }
@@ -1492,11 +1491,10 @@ body::before {
         grid-template-areas: 
             "header"
             "tabs"
-            "drawer"
-            "sheet";
+            "drawer";
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto 1fr auto;
-        height: calc(100vh - 40px) !important;
+        grid-template-rows: auto auto 1fr;
+        height: calc(100vh - 160px) !important;
         gap: 6px;
         overflow: hidden;
     }
@@ -1892,12 +1890,12 @@ body::before {
         background: #04120b; /* dark forest felt */
         border-top: 1.5px solid var(--border-color);
         padding: 10px 14px;
-        position: relative !important;
-        grid-area: sheet;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
         z-index: 150;
         box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
-        margin: 10px -20px -20px -20px !important;
-        width: calc(100% + 40px) !important;
     }
 }
 
