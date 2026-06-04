@@ -1441,7 +1441,7 @@ body::before {
             "drawer";
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr;
-        height: calc(100vh - 160px) !important;
+        height: calc(100vh - 310px) !important;
         gap: 12px;
         overflow: hidden;
     }
@@ -1465,7 +1465,6 @@ body::before {
     .layout-drafting .player-pool-scroll {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
         grid-auto-rows: minmax(80px, auto) !important;
-        padding-bottom: 110px !important;
     }
 }
 
@@ -1479,7 +1478,7 @@ body::before {
             "drawer";
         grid-template-columns: 1fr;
         grid-template-rows: auto auto 1fr;
-        height: calc(100vh - 160px) !important;
+        height: calc(100vh - 310px) !important;
         gap: 6px;
         overflow: hidden;
     }
@@ -1503,7 +1502,6 @@ body::before {
     .layout-drafting .player-pool-scroll {
         grid-template-columns: repeat(auto-fill, minmax(115px, 1fr)) !important;
         grid-auto-rows: minmax(75px, auto) !important;
-        padding-bottom: 110px !important;
     }
 }
 
@@ -1704,11 +1702,6 @@ body::before {
     scrollbar-width: thin !important;
 }
 
-@media (max-width: 1023px) {
-    .layout-drafting .player-pool-scroll {
-        padding-bottom: 180px !important;
-    }
-}
 
 
 /* Specific scrollbar styling for the columns */
