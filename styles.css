@@ -1870,7 +1870,7 @@ body::before {
 }
 
 @media (max-width: 1023px) {
-    #game-screen.layout-drafting ~ .roster-bottom-sheet {
+    .layout-drafting .roster-bottom-sheet {
         display: flex !important;
         flex-direction: column;
         background: #04120b; /* dark forest felt */

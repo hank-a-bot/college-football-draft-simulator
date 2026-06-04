@@ -250,6 +250,8 @@ class CollegeGame {
         if (this.screens && this.screens.game) {
             this.screens.game.classList.toggle("layout-drafting", stateName === "poolDraft");
             this.screens.game.classList.toggle("layout-spinning", stateName === "spinCta");
+            document.body.classList.toggle("layout-drafting", stateName === "poolDraft");
+            document.body.classList.toggle("layout-spinning", stateName === "spinCta");
         }
     }
 
