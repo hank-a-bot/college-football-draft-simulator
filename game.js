@@ -805,15 +805,12 @@ class CollegeGame {
         this.liveStats.off.innerText = isOffComplete ? `${offScale}` : "--";
         this.liveStats.def.innerText = isDefComplete ? `${defScale}` : "--";
         
-        // Count Consensus All-Americans / Heisman winners
+        // Count Consensus All-Americans / Heisman Finalists
         let aaCount = 0;
         allSlots.forEach(slot => {
             const player = this.roster[slot.id];
-            if (player && player.accolades) {
-                const acc = player.accolades.toLowerCase();
-                if (acc.includes("all-american") || acc.includes("all american") || acc.includes("heisman")) {
-                    aaCount++;
-                }
+            if (player && player.rating >= 90) {
+                aaCount++;
             }
         });
         
@@ -854,15 +851,12 @@ class CollegeGame {
         const defScale = this.scaleRating(defRating);
         const teamScale = this.scaleRating(teamRating);
         
-        // Count Consensus All-Americans / Heisman winners
+        // Count Consensus All-Americans / Heisman Finalists
         let aaCount = 0;
         allSlots.forEach(slot => {
             const player = this.roster[slot.id];
-            if (player && player.accolades) {
-                const acc = player.accolades.toLowerCase();
-                if (acc.includes("all-american") || acc.includes("all american") || acc.includes("heisman")) {
-                    aaCount++;
-                }
+            if (player && player.rating >= 90) {
+                aaCount++;
             }
         });
         
@@ -977,8 +971,7 @@ class CollegeGame {
         const card = document.createElement("div");
         card.className = "results-player-item";
         
-        const accoladesLower = (player.accolades || "").toLowerCase();
-        const isStar = accoladesLower.includes("all-american") || accoladesLower.includes("all american") || accoladesLower.includes("heisman");
+        const isStar = player.rating >= 90;
         
         card.style.borderLeft = `3px solid ${this.getTeamColor(player.teamAbbr)}`;
         
