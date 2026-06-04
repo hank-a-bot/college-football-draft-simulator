@@ -941,7 +941,7 @@ class CollegeGame {
         
         // Set share code input text
         const shareCodeText = document.getElementById("share-code-text");
-        const playUrl = window.location.hostname.endsWith('surge.sh') ? window.location.href : 'http://football-draft-simulator-2026.surge.sh';
+        const playUrl = (window.location.hostname.endsWith('github.io') || window.location.hostname.endsWith('surge.sh')) ? window.location.href : 'https://hank-a-bot.github.io/college-football-draft-simulator/';
         shareCodeText.value = `My College Football 16-0 run: ${wins}-${losses} (${gradeObj.grade} ${gradeObj.descriptor})! Offense: ${offScale}, Defense: ${defScale}, Team Overall: ${teamScale}. Can you go perfect? play here: ${playUrl}`;
         
         // Reset copy message
