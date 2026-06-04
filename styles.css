@@ -1704,6 +1704,13 @@ body::before {
     scrollbar-width: thin !important;
 }
 
+@media (max-width: 1023px) {
+    .layout-drafting .player-pool-scroll {
+        padding-bottom: 180px !important;
+    }
+}
+
+
 /* Specific scrollbar styling for the columns */
 #offense-pool-container::-webkit-scrollbar,
 #defense-pool-container::-webkit-scrollbar {
