@@ -685,6 +685,8 @@ body::before {
     display: none;
     flex-direction: column;
     height: 100%;
+    min-height: 0;
+    overflow: hidden;
     gap: 14px;
 }
 
@@ -1373,6 +1375,8 @@ body::before {
     width: auto !important;
     display: flex !important;
     flex-direction: column !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
     box-shadow: none !important;
     border-radius: var(--radius-lg) !important;
     margin: 0 !important;
@@ -1646,6 +1650,7 @@ body::before {
 .player-pools-split {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
+    grid-template-rows: minmax(0, 1fr) !important;
     gap: 16px !important;
     flex: 1 !important;
     min-height: 0 !important;
