@@ -160,11 +160,49 @@ class CollegeGame {
         this.homeLink.addEventListener("click", () => this.showScreen("welcome"));
         this.tabOffense.addEventListener("click", () => this.switchMobileTab("offense"));
         this.tabDefense.addEventListener("click", () => this.switchMobileTab("defense"));
+        
+        // Re-constrain pool scroll heights on resize/orientation change
+        window.addEventListener("resize", () => this.constrainPoolScrollHeight());
+        window.addEventListener("orientationchange", () => {
+            setTimeout(() => this.constrainPoolScrollHeight(), 300);
+        });
     }
 
     showScreen(screenId) {
         Object.keys(this.screens).forEach(key => {
             this.screens[key].classList.toggle("active", key === screenId);
+        });
+    }
+
+    /**
+     * Directly measure the bottom sheet position and set max-height on the
+     * player pool scroll containers so they cannot extend behind the tray.
+     * Uses getBoundingClientRect() for real pixel positions that account for
+     * iOS Safari address bar, CSS transforms, font scaling, everything.
+     */
+    constrainPoolScrollHeight() {
+        const sheet = document.getElementById("mobile-roster-sheet");
+        const offPool = document.getElementById("offense-pool-container");
+        const defPool = document.getElementById("defense-pool-container");
+        if (!sheet || !offPool || !defPool) return;
+        
+        // Only constrain when the sheet is actually visible (mobile drafting)
+        const sheetRect = sheet.getBoundingClientRect();
+        if (sheetRect.height === 0) {
+            // Sheet not visible (desktop or non-drafting) — clear constraints
+            offPool.style.maxHeight = "";
+            defPool.style.maxHeight = "";
+            return;
+        }
+        
+        const sheetTop = sheetRect.top;
+        
+        [offPool, defPool].forEach(pool => {
+            const poolTop = pool.getBoundingClientRect().top;
+            const available = sheetTop - poolTop - 8; // 8px breathing room
+            if (available > 50) {
+                pool.style.maxHeight = available + "px";
+            }
         });
     }
 
@@ -684,6 +722,9 @@ class CollegeGame {
         this.rerollCountBadge.innerText = this.rerolls;
         
         this.renderPlayerPool();
+        
+        // After DOM is laid out, measure and constrain scroll heights
+        requestAnimationFrame(() => this.constrainPoolScrollHeight());
     }
 
     renderPlayerPool() {
